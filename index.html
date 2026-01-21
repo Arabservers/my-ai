@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TurkiBot AI - مساعد الذكاء الاصطناعي</title>
+    <meta name="description"
+        content="TurkiBot AI - مساعدك الذكي لتطوير المواقع والبرمجة. إنشاء مواقع، كتابة أكواد، وحل المشاكل البرمجية.">
+    <meta name="keywords" content="AI, chatbot, برمجة, تطوير مواقع, ذكاء اصطناعي">
+    <meta name="author" content="TurkiBot">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%236366f1' rx='20' width='100' height='100'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='white'>🤖</text></svg>">
+</head>
+
+<body>
+    <div class="bg-gradient"></div>
+    <canvas id="particlesCanvas"></canvas>
+
+    <div class="app-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">🤖</div>
+                    <span class="logo-text">TurkiBot</span>
+                </div>
+                <button class="new-chat-btn" id="newChatBtn">
+                    <i class="fas fa-plus"></i>
+                    محادثة جديدة
+                </button>
+            </div>
+            <div class="chat-history" id="chatHistory">
+            </div>
+            <div class="sidebar-footer">
+                <button class="theme-toggle-btn" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                    <span>الوضع الفاتح</span>
+                </button>
+                <button class="export-btn" id="exportBtn">
+                    <i class="fas fa-file-export"></i>
+                    <span>تصدير المحادثة</span>
+                </button>
+            </div>
+        </aside>
+
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <main class="main-content">
+            <header class="chat-header">
+                <h1 class="chat-title">TurkiBot AI</h1>
+                <div class="header-actions">
+                    <button class="header-btn" id="clearChatBtn">
+                        <i class="fas fa-trash"></i>
+                        مسح
+                    </button>
+                    <button class="header-btn" onclick="app.codePreview.show()">
+                        <i class="fas fa-code"></i>
+                        المعاينة
+                    </button>
+                </div>
+            </header>
+
+            <div class="progress-bar" id="progressBar">
+                <div class="progress-fill"></div>
+            </div>
+
+            <div class="chat-container" id="chatContainer">
+                <div class="welcome-screen" id="welcomeScreen">
+                    <div class="welcome-icon">🚀</div>
+                    <h2 class="welcome-title">مرحباً بك في TurkiBot AI</h2>
+                    <p class="welcome-subtitle">
+                        مساعدك الذكي لتطوير المواقع والبرمجة. اطلب مني إنشاء مواقع، كتابة أكواد، أو حل مشاكل برمجية!
+                    </p>
+                    <div class="suggestions">
+                        <div class="suggestion-card" data-prompt="أنشئ لي صفحة هبوط احترافية لشركة تقنية مع تصميم عصري">
+                            <i class="fas fa-globe"></i>
+                            <h4>صفحة هبوط احترافية</h4>
+                            <p>تصميم Landing Page عصري لشركة تقنية</p>
+                        </div>
+                        <div class="suggestion-card" data-prompt="أنشئ لي نموذج تسجيل دخول متطور بتصميم Glassmorphism">
+                            <i class="fas fa-lock"></i>
+                            <h4>نموذج تسجيل دخول</h4>
+                            <p>تصميم Login Form بتأثيرات زجاجية</p>
+                        </div>
+                        <div class="suggestion-card" data-prompt="أنشئ لي لوحة تحكم Dashboard احترافية مع رسوم بيانية">
+                            <i class="fas fa-chart-line"></i>
+                            <h4>لوحة تحكم</h4>
+                            <p>Dashboard متكامل مع إحصائيات</p>
+                        </div>
+                        <div class="suggestion-card" data-prompt="أنشئ لي بطاقات منتجات متجر إلكتروني بتصميم أنيق">
+                            <i class="fas fa-shopping-cart"></i>
+                            <h4>بطاقات منتجات</h4>
+                            <p>تصميم Product Cards للمتاجر</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <div class="input-box">
+                        <div class="file-preview" id="filePreview"></div>
+                        <textarea id="messageInput"
+                            placeholder="اكتب رسالتك هنا... اطلب إنشاء موقع، كود، أو اسأل أي سؤال برمجي"
+                            rows="1"></textarea>
+                        <div class="input-actions">
+                            <input type="file" id="fileInput" hidden accept="image/*,.txt,.json,.html,.css,.js">
+                            <button class="input-btn attach-btn" id="attachBtn">
+                                <i class="fas fa-paperclip"></i>
+                            </button>
+                            <button class="input-btn send-btn" id="sendBtn" disabled>
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <aside class="preview-panel" id="previewPanel">
+            <header class="preview-header">
+                <div class="preview-tabs">
+                    <button class="preview-tab active" data-tab="preview">
+                        <i class="fas fa-eye"></i> معاينة
+                    </button>
+                    <button class="preview-tab" data-tab="code">
+                        <i class="fas fa-code"></i> الكود
+                    </button>
+                </div>
+                <div class="preview-actions">
+                    <button class="preview-btn" id="copyCodeBtn">
+                        <i class="fas fa-copy"></i> نسخ
+                    </button>
+                    <button class="preview-btn" id="downloadCodeBtn">
+                        <i class="fas fa-download"></i> تحميل
+                    </button>
+                    <button class="preview-btn close-btn" id="closePreviewBtn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </header>
+            <div class="preview-content">
+                <div class="code-view" id="codeView"></div>
+                <iframe class="preview-frame active" id="previewFrame"></iframe>
+            </div>
+        </aside>
+    </div>
+
+    <script src="js/particles.js"></script>
+    <script src="js/code-preview.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>
