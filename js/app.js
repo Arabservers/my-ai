@@ -416,10 +416,11 @@ class ChatApp {
             }
         };
 
-        const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+        const response = await fetch(GEMINI_API_URL, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-goog-api-key': GEMINI_API_KEY
             },
             body: JSON.stringify(requestBody)
         });
